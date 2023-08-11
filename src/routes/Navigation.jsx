@@ -23,7 +23,6 @@ const Navigation = () => {
   const expoPushToken = usePushNotification();
   const [userAuth, setUserAuth] = useRecoilState(userAuthenticated);
   const [token, setToken] = useRecoilState(tokenNotification);
-  const { main } = routing;
   const Stack = createNativeStackNavigator();
 
   useEffect(() => {
