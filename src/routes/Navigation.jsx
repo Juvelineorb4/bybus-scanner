@@ -17,7 +17,7 @@ import * as mutations from "@/graphql/mutations";
 // Hooks Custom
 import usePushNotification from "@/hooks/usePushNotification";
 import WelcomeNavigation from "./WelcomeNavigation";
-import ScanNavigation from "./ScanNavigation";
+import Tabs from "./Tabs/Tabs";
 
 const Navigation = () => {
   const expoPushToken = usePushNotification();
@@ -69,8 +69,8 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={!userAuth ? "Welcome_Navigation" : "Scan_Navigation"}>
-        {!userAuth ? (
+      <Stack.Navigator initialRouteName={"Welcome_Navigation"}>
+        {/* {!userAuth ? ( */}
           <Stack.Screen
             name={`Welcome_Navigation`}
             component={WelcomeNavigation}
@@ -78,15 +78,15 @@ const Navigation = () => {
               headerShown: false,
             }}
           />
-        ) : (
+        {/* ) : ( */}
           <Stack.Screen
-            name={`Scan_Navigation`}
-            component={ScanNavigation}
+            name={`Tabs`}
+            component={Tabs}
             options={{
               headerShown: false,
             }}
           />
-        )}
+        {/* )} */}
       </Stack.Navigator>
     </NavigationContainer>
   );

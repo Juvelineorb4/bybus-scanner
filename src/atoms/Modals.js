@@ -11,3 +11,8 @@ export const tokenNotification = atom({
   key: "token",
   default: undefined,
 });
+
+export const travelSelect = atom({
+  key: "travelSelectValue",
+  default: {},
+});
