@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Welcome from "@/screens/Auth/Welcome";
 import Login from "@/screens/Auth/Login";
 import Header from "./Header/Header";
+import Profiles from "@/screens/Auth/Profiles";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,14 @@ const WelcomeNavigation = () => {
       <Stack.Screen
         name="Login"
         component={Login}
+        options={{
+          header: () => <Header mode="back-only" />,
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="Profiles"
+        component={Profiles}
         options={{
           header: () => <Header mode="back-only" />,
           animation: "slide_from_right",

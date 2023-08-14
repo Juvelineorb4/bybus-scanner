@@ -38,7 +38,7 @@ const Welcome = ({ navigation, route }) => {
         <View style={styles.buttons}>
           <CustomButton
             text={signin.button}
-            handlePress={() => navigation.navigate(`Tabs`)}
+            handlePress={() => navigation.navigate(`Login`)}
             textStyles={[styles.textSignIn, global.white]}
             buttonStyles={[styles.signin, global.bgBlack]}
           />

@@ -103,7 +103,7 @@ const Login = ({ navigation, route }) => {
           <View style={styles.buttons}>
             <CustomButton
               text={`Iniciar sesion`}
-              handlePress={handleSubmit(onHandleLogin)}
+              handlePress={() => navigation.navigate('Profiles')}
               textStyles={[styles.textLogin, global.white]}
               buttonStyles={[styles.login, global.bgBlack]}
             />
