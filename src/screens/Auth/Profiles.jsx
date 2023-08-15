@@ -38,7 +38,9 @@ const Profiles = ({navigation}) => {
     },
   ];
   return (
-    <View style={styles.container}>
+    <View style={[{flex: 1}, global.bgWhite]}>
+      <Text style={{fontFamily: 'light', fontSize: 18, paddingLeft: 20}}>Perfiles disponibles</Text>
+      <View style={[styles.container, global.bgWhite]}>
       {profiles.map((profile) => (
         <TouchableOpacity
           key={profile.id}
@@ -99,6 +101,8 @@ const Profiles = ({navigation}) => {
         </TouchableOpacity>
       ))}
     </View>
+    </View>
+    
   );
 };
 

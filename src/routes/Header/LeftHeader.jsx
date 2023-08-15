@@ -31,7 +31,7 @@ const LeftHeader = ({ text = "", icon = true, route}) => {
             source={require("@/utils/images/icon.png")}
           />
           <Text
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.goBack("Home")}
             style={[styles.textLogo, global.black]}
           >
             {text}

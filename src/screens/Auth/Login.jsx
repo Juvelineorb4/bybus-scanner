@@ -25,16 +25,6 @@ const Login = ({ navigation, route }) => {
 
   return (
     <View style={[styles.container, global.bgWhite]}>
-      <Image
-        style={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
-          top: "-35%",
-          resizeMode: "contain",
-        }}
-        source={require("@/utils/images/texture.png")}
-      />
       <View style={styles.content}>
         <ScrollView
           contentContainerStyle={{ flexGrow: 1 }}

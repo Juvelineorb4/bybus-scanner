@@ -47,7 +47,7 @@
     /* margin-left: 10px; */
     color: #8c9199cb;
     /* text-transform: capitalize; */
-    font-size: 12px;
+    font-size: 14px;
     font-family: "light";
   }
   .inputContainerTag {
@@ -76,7 +76,7 @@
     /* margin: -6px 2px; */
   }
   .textTag {
-    font-size: 12px;
+    font-size: 14px;
     font-family: 'thin';
   }
   
@@ -103,7 +103,7 @@
     margin-left: 10px;
     color: #8c9199cb;
     /* text-transform: capitalize; */
-    font-size: 12px;
+    font-size: 14px;
     font-family: "light";
   }
   .labelInput {

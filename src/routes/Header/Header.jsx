@@ -4,12 +4,12 @@ import LeftHeader from "./LeftHeader";
 import RightHeader from "./RightHeader";
 import styles from "@/utils/styles/Header.module.css";
 
-const Header = ({ mode = "" }) => {
+const Header = ({ mode = "", color = '' }) => {
   const global = require('@/utils/styles/global.js');
   return (
     <View style={styles.container}>
       {mode === "back-only" ? (
-        <View style={styles.headerBO}>
+        <View style={[styles.headerBO, color === 'yellow' ? global.mainBgColorSecond : global.bgWhite]}>
           <LeftHeader />
         </View>
       ) : mode === "with-back" ? (

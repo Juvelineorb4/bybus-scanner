@@ -6,7 +6,7 @@ import CustomButton from "@/components/CustomButton";
 import ScanTicketList from "@/components/ScanTicketList";
 import CustomTravels from "@/components/CustomTravels";
 
-const Scan = () => {
+const Scan = ({navigation}) => {
   const global = require("@/utils/styles/global.js");
   const data = [
     {
@@ -41,12 +41,11 @@ const Scan = () => {
       <View>
         <CustomButton
           text={`Escanea un ticket`}
-          // handlePress={handleSubmit(onHandleLogin)}
+          handlePress={() => navigation.navigate('Scanner')}
           textStyles={[styles.textScan, global.white]}
           buttonStyles={[styles.scan, global.bgBlack]}
         />
       </View>
-
       <BottomSheetModal bottomSheetStyle={{flex: 1}}>
         <View style={{marginHorizontal: 10, alignItems: 'center'}}>
           <Text style={{
