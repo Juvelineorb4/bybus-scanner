@@ -71,14 +71,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#ffce48',
+    backgroundColor: '#00B4D8',
     paddingBottom: 60,
   },
   title: {
     fontSize: 24,
-    fontFamily: 'thin',
+    fontFamily: 'light',
     marginBottom: 30,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: '#ffffff'
   },
   paragraph: {
     fontSize: 16,
