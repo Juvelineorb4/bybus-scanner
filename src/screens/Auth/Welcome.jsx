@@ -22,18 +22,19 @@ const Welcome = ({ navigation, route }) => {
       <View style={styles.content}>
         <View style={styles.text}>
           <View style={styles.name}>
-            <Image
+          <Image
               style={{
-                width: 36,
-                height: 36,
-                resizeMode: "contain",
+                width: 200,
+                height: 40,
+                resizeMode: "cover",
+                marginLeft: -20
               }}
               source={require("@/utils/images/icon.png")}
             />
-            <Text style={[styles.textName, global.black]}>{content.name}</Text>
+            {/* <Text style={[styles.textName, global.white]}>{content.name}</Text> */}
           </View>
-          <Text style={[styles.textTitle, global.black]}>{content.title}</Text>
-          <Text style={[styles.textSubtitle, global.black]}>{content.subtitle}</Text>
+          <Text style={[styles.textTitle, global.white]}>{content.title}</Text>
+          <Text style={[styles.textSubtitle, global.white]}>{content.subtitle}</Text>
         </View>
         <View style={styles.buttons}>
           <CustomButton
