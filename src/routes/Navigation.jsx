@@ -8,26 +8,25 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Auth, Hub } from "aws-amplify";
 
 // recoil
-import { userAuthenticated, tokenNotification } from "@/atoms/Modals";
-import { useRecoilState } from "recoil";
+import {
+  userAuthenticated,
+  tokenProfileGlobal,
+  errorMessageLogin,
+} from "@/atoms/Modals";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 // graphql
 import { API } from "aws-amplify";
 import * as mutations from "@/graphql/mutations";
 // Hooks Custom
-import usePushNotification from "@/hooks/usePushNotification";
 import WelcomeNavigation from "./WelcomeNavigation";
 import Tabs from "./Tabs/Tabs";
 
 const Navigation = () => {
-  const expoPushToken = usePushNotification();
   const [userAuth, setUserAuth] = useRecoilState(userAuthenticated);
-  const [token, setToken] = useRecoilState(tokenNotification);
+  const [tokenProfile, setTokenProfile] = useRecoilState(tokenProfileGlobal);
+  const setError = useSetRecoilState(errorMessageLogin);
   const Stack = createNativeStackNavigator();
-
-  useEffect(() => {
-    setToken(expoPushToken);
-  }, [expoPushToken]);
 
   //para esuchar que esta succdiendo con auth
   useEffect(() => {
@@ -39,16 +38,8 @@ const Navigation = () => {
           checkUser();
           break;
         case "signOut":
-          setUserAuth(undefined);
-          break;
-        case "confirmSignUp":
-          console.log(data);
-          break;
-        case "autoSignIn":
-          createWallet(data);
-          break;
-        case "updateUserAttributes":
-          checkUser();
+          setTokenProfile(null);
+          setUserAuth(null);
           break;
       }
     });
@@ -57,28 +48,49 @@ const Navigation = () => {
     return unsubscribe;
   }, []);
 
+  useEffect(() => {
+    console.log("OBSERVAR CAMBIOS", {
+      userAuth: userAuth?.attributes?.name,
+      tokenProfile: tokenProfile?.name,
+    });
+  }, [userAuth, tokenProfile]);
+
   const checkUser = async () => {
     try {
       const result = await Auth.currentAuthenticatedUser();
+
+      if (
+        !result?.signInUserSession?.accessToken?.payload["cognito:groups"] &&
+        !result?.signInUserSession?.accessToken?.payload[
+          "cognito:groups"
+        ]?.includes("agency")
+      ) {
+        console.log("mi pana no tenes permiso");
+        await Auth.signOut();
+        setError("Usuario no Autorizado: Solo se Permiten cuentas de empresas");
+        return;
+      }
+
       setUserAuth(result);
     } catch (error) {
-      console.error("Not signed in");
-      setUserAuth(undefined);
+      console.log(error.message);
+      console.log("Not signed in");
+      setUserAuth(null);
+      setTokenProfile(null);
     }
   };
 
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={"Welcome_Navigation"}>
-        {/* {!userAuth ? ( */}
-          <Stack.Screen
-            name={`Welcome_Navigation`}
-            component={WelcomeNavigation}
-            options={{
-              headerShown: false,
-            }}
-          />
-        {/* ) : ( */}
+        <Stack.Screen
+          name={`Welcome_Navigation`}
+          component={WelcomeNavigation}
+          options={{
+            headerShown: false,
+          }}
+        />
+        {userAuth && tokenProfile?.type === "COLLECTOR" && (
           <Stack.Screen
             name={`Tabs`}
             component={Tabs}
@@ -86,7 +98,7 @@ const Navigation = () => {
               headerShown: false,
             }}
           />
-        {/* )} */}
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

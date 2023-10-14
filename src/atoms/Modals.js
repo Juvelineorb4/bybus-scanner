@@ -3,16 +3,19 @@ import { atom } from "recoil";
 /* User */
 export const userAuthenticated = atom({
   key: "user",
-  default: undefined,
-});
-
-/* Token Notification */
-export const tokenNotification = atom({
-  key: "token",
-  default: undefined,
+  default: null,
 });
 
 export const travelSelect = atom({
   key: "travelSelectValue",
   default: {},
+});
+
+export const errorMessageLogin = atom({
+  key: "errorMessageLoginValue",
+  default: "",
+});
+export const tokenProfileGlobal = atom({
+  key: "tokenProfileGlobalValue",
+  default: null,
 });

@@ -66,7 +66,7 @@ const EnterCode = ({ control }) => {
                     let newValue = [...value];
                     newValue[3] = number;
                     onChange(newValue);
-                    number ? five.current.focus() : three.current.focus();
+                    !number && three.current.focus();
                   }}
                   placeholder={`0`}
                   keyboardType="number-pad"
@@ -74,7 +74,7 @@ const EnterCode = ({ control }) => {
                   ref={four}
                   style={[styles.input, global.bgWhiteSoft, global.black]}
                 />
-                <TextInput
+                {/* <TextInput
                   onChangeText={(number) => {
                     let newValue = [...value];
                     newValue[4] = number;
@@ -99,7 +99,7 @@ const EnterCode = ({ control }) => {
                   maxLength={1}
                   ref={six}
                   style={[styles.input, global.bgWhiteSoft, global.black]}
-                />
+                /> */}
               </>
             )}
           />

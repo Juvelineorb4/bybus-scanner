@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "scanner",
-    "slug": "bybus",
+    "slug": "scanner",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/utils/images/icon.png",
@@ -13,12 +13,11 @@
     },
     "updates": {
       "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/cfbc5cf8-3adc-4b3e-bfdb-1f4bb0f7afe5"
+      "url": "https://u.expo.dev/a46aebba-10ef-48bf-81f5-d25e0cfb9cb1"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
+      "runtimeVersion": "exposdk:48.0.0",
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access camera.",
@@ -26,7 +25,8 @@
       }
     },
     "android": {
-      "package": "com.bybus",
+      "runtimeVersion": "exposdk:48.0.0",
+      "package": "com.bybus.scanner",
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./src/utils/images/adaptive-icon.png",
@@ -42,11 +42,7 @@
     },
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": [
-        "js",
-        "jsx",
-        "css"
-      ]
+      "sourceExts": ["js", "jsx", "css"]
     },
     "plugins": [
       [
@@ -70,7 +66,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "cfbc5cf8-3adc-4b3e-bfdb-1f4bb0f7afe5"
+        "projectId": "a46aebba-10ef-48bf-81f5-d25e0cfb9cb1"
       }
     },
     "runtimeVersion": {

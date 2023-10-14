@@ -5,34 +5,44 @@ import Login from "@/screens/Auth/Login";
 import Header from "./Header/Header";
 import Profiles from "@/screens/Auth/Profiles";
 
+// recoil
+import { useRecoilValue } from "recoil";
+import { userAuthenticated, tokenProfileGlobal } from "@/atoms/Modals";
 const Stack = createNativeStackNavigator();
 
 const WelcomeNavigation = () => {
+  const userAuth = useRecoilValue(userAuthenticated);
+  const tokenProfile = useRecoilValue(tokenProfileGlobal);
   return (
-    <Stack.Navigator initialRouteName={`Welcome`}>
-      <Stack.Screen
-        name="Welcome"
-        component={Welcome}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{
-          header: () => <Header mode="back-only" />,
-          animation: "slide_from_right",
-        }}
-      />
-      <Stack.Screen
-        name="Profiles"
-        component={Profiles}
-        options={{
-          header: () => <Header mode="back-only" />,
-          animation: "slide_from_right",
-        }}
-      />
+    <Stack.Navigator initialRouteName={userAuth ? "Welcome" : "Profiles"}>
+      {!userAuth ? (
+        <>
+          <Stack.Screen
+            name="Welcome"
+            component={Welcome}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              header: () => <Header mode="back-only" />,
+              animation: "slide_from_right",
+            }}
+          />
+        </>
+      ) : (
+        <Stack.Screen
+          name="Profiles"
+          component={Profiles}
+          options={{
+            headerShown: false,
+            animation: "slide_from_right",
+          }}
+        />
+      )}
     </Stack.Navigator>
   );
 };

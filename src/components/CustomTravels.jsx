@@ -20,77 +20,74 @@ const CustomTravels = ({ data }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { control } = useForm();
   const travel = useRecoilValue(travelSelect);
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <ScrollView
-      // style={[global.bgWhite]}
-      // showsVerticalScrollIndicator={false}
+    // style={[global.bgWhite]}
+    // showsVerticalScrollIndicator={false}
     >
-        <TouchableOpacity
-          style={[styles.inputContainerTag]}
-          onPress={() => setModalVisible(!modalVisible)}
+      <TouchableOpacity
+        style={[styles.inputContainerTag]}
+        onPress={() => setModalVisible(!modalVisible)}
+      >
+        <View>
+          {travel.name ? (
+            <View style={styles.containerTag}>
+              <Text style={styles.textTag}>{travel.name}</Text>
+            </View>
+          ) : (
+            <Text style={styles.textInputTag}>Selecciona tu viaje</Text>
+          )}
+        </View>
+
+        <Modal
+          animationType="none"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
         >
-          <View >
-            {travel.name ? (
-                <View style={styles.containerTag}>
-                  <Text style={styles.textTag}>{travel.name}</Text>
-                </View>
-            ) : (
-              <Text style={styles.textInputTag}>
-                Selecciona tu viaje
-              </Text>
-            )}
-          </View>
-
-          <Modal
-            animationType="none"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={styles.modalContainer}>
-              <View style={styles.modalContent}>
-                <View style={styles.modalTop}>
-                  <Pressable
-                    onPress={() => {
-                      setModalVisible(!modalVisible);
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <View style={styles.modalTop}>
+                <Pressable
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}
+                >
+                  <Image
+                    style={{
+                      width: 25,
+                      height: 25,
+                      resizeMode: "contain",
                     }}
-                  >
-                    <Image
-                      style={{
-                        width: 25,
-                        height: 25,
-                        resizeMode: "contain",
-                      }}
-                      source={require("@/utils/images/arrow_back.png")}
-                    />
-                  </Pressable>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.titleTag}>
-                    Lista de viajes disponibles este dia: 12/08/2023.{' '}
-                    Selecciona uno.
-                  </Text>
+                    source={require("@/utils/images/arrow_back.png")}
+                  />
+                </Pressable>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.titleTag}>
+                  Lista de viajes disponibles este dia:{" "}
+                  {new Date().toISOString().slice(0, 10)}. Selecciona uno.
+                </Text>
 
-                  <View style={[{ flex: 1 }]}>
-                    <FlatList
-                      data={data}
-                      renderItem={({ item }) => <Travel item={item} />}
-                      numColumns={2}
-                      keyExtractor={(item, index) => index}
-                      showsVerticalScrollIndicator={false}
-                      columnWrapperStyle={{ justifyContent: "space-between" }}
-                    />
-                  </View>
+                <View style={[{ flex: 1 }]}>
+                  <FlatList
+                    data={data}
+                    renderItem={({ item }) => <Travel item={item} />}
+                    numColumns={2}
+                    keyExtractor={(item, index) => index}
+                    showsVerticalScrollIndicator={false}
+                    columnWrapperStyle={{ justifyContent: "space-between" }}
+                  />
                 </View>
               </View>
             </View>
-          </Modal>
-        </TouchableOpacity>
+          </View>
+        </Modal>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
