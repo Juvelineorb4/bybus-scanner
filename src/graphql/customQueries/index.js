@@ -108,3 +108,96 @@ export const listBookingsAvailable = /* GraphQL */ `
     }
   }
 `;
+
+export const getBooking = /* GraphQL */ `
+  query GetBooking($id: ID!) {
+    getBooking(id: $id) {
+      id
+      status
+      code
+      agencyID
+      officeID
+      customers {
+        items {
+          id
+          name
+          lastName
+          ci
+          email
+          bookingID
+          ticketID
+          owner
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      tickets {
+        items {
+          id
+          code
+          bookingID
+          stop
+          customerID
+          customer {
+            id
+            name
+          }
+          seating
+          status
+          description
+          url
+          owner
+          createdAt
+          updatedAt
+          stopBookingTicketsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      stops {
+        items {
+          id
+          bookingID
+          price
+          owner
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      departureCity
+      arrivalCity
+      departure {
+        time
+        date
+        city
+        state
+        address
+        __typename
+      }
+      arrival {
+        time
+        date
+        city
+        state
+        address
+        __typename
+      }
+      stock
+      price
+      createdBy
+      driver
+      transport
+      owner
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;

@@ -1,7 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Button, Alert } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import { Camera } from 'expo-camera';
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Button,
+  Alert,
+} from "react-native";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { Camera } from "expo-camera";
 
 const Scanner = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -10,19 +17,19 @@ const Scanner = () => {
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasPermission(status === "granted");
     })();
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    Alert.alert('Escaner', `Escaneaste el ticket ${data} ¿quieres aceptarlo?`, [
+    Alert.alert("Escaner", `Escaneaste el ticket ${data} ¿quieres aceptarlo?`, [
       {
-        text: 'Cancelar',
-        onPress: () => console.log('Cancelado'),
-        style: 'cancel',
+        text: "Cancelar",
+        onPress: () => console.log("Cancelado"),
+        style: "cancel",
       },
-      {text: 'Aceptar', onPress: () => console.log('Aceptado')},
+      { text: "Aceptar", onPress: () => console.log("Aceptado") },
     ]);
     // alert(`Escaneaste el ticket ${data} ¿quieres aceptarlo?`);
   };
@@ -54,54 +61,51 @@ const Scanner = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Empieza a escanear tus tickets</Text>
       {renderCamera()}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => setScanned(false)}
-      >
+      <TouchableOpacity style={styles.button} onPress={() => setScanned(false)}>
         <Text style={styles.buttonText}>Escanea un ticket de nuevo</Text>
       </TouchableOpacity>
     </View>
   );
-}
-export default Scanner
+};
+export default Scanner;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 20,
-    backgroundColor: '#00B4D8',
+    backgroundColor: "#00B4D8",
     paddingBottom: 60,
   },
   title: {
     fontSize: 24,
-    fontFamily: 'light',
+    fontFamily: "light",
     marginBottom: 30,
-    textAlign: 'center',
-    color: '#ffffff'
+    textAlign: "center",
+    color: "#ffffff",
   },
   paragraph: {
     fontSize: 16,
     marginBottom: 40,
   },
   cameraContainer: {
-    width: '100%',
+    width: "100%",
     aspectRatio: 1,
-    overflow: 'hidden',
+    overflow: "hidden",
     marginBottom: 40,
   },
   camera: {
     flex: 1,
   },
   button: {
-    backgroundColor: '#1f1f1f',
+    backgroundColor: "#1f1f1f",
     padding: 20,
     borderRadius: 5,
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 14,
-    fontFamily: 'light'
+    fontFamily: "light",
   },
 });

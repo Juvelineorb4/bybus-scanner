@@ -296,11 +296,19 @@ type Ticket
   bookingID: ID @index(name: "byBookingToTicket")
   stop: ID @index(name: "byStopBookingToTicket")
   customerID: ID
+  customer: Customer @belongsTo
   seating: String
   status: String
   description: String
   url: String
   owner: String @auth(rules: [{ allow: owner, operations: [read] }])
+}
+
+enum ticketStatus {
+  ACTIVATED
+  BOARDED
+  UNBOARDED
+  CANCELED
 }
 
 type OrderTicket

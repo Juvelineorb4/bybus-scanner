@@ -99,6 +99,19 @@ export const deleteCustomer = /* GraphQL */ `
         bookingID
         stop
         customerID
+        customer {
+          id
+          name
+          lastName
+          ci
+          email
+          bookingID
+          ticketID
+          owner
+          createdAt
+          updatedAt
+          __typename
+        }
         seating
         status
         description
@@ -107,6 +120,7 @@ export const deleteCustomer = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
+        ticketCustomerId
         __typename
       }
       owner
@@ -127,6 +141,36 @@ export const deleteTicket = /* GraphQL */ `
       bookingID
       stop
       customerID
+      customer {
+        id
+        name
+        lastName
+        ci
+        email
+        bookingID
+        ticketID
+        ticket {
+          id
+          code
+          bookingID
+          stop
+          customerID
+          seating
+          status
+          description
+          url
+          owner
+          createdAt
+          updatedAt
+          stopBookingTicketsId
+          ticketCustomerId
+          __typename
+        }
+        owner
+        createdAt
+        updatedAt
+        __typename
+      }
       seating
       status
       description
@@ -135,6 +179,7 @@ export const deleteTicket = /* GraphQL */ `
       createdAt
       updatedAt
       stopBookingTicketsId
+      ticketCustomerId
       __typename
     }
   }
@@ -154,6 +199,19 @@ export const deleteOrderTicket = /* GraphQL */ `
         bookingID
         stop
         customerID
+        customer {
+          id
+          name
+          lastName
+          ci
+          email
+          bookingID
+          ticketID
+          owner
+          createdAt
+          updatedAt
+          __typename
+        }
         seating
         status
         description
@@ -162,6 +220,7 @@ export const deleteOrderTicket = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
+        ticketCustomerId
         __typename
       }
       owner
@@ -1030,6 +1089,7 @@ export const createBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
+          ticketCustomerId
           __typename
         }
         nextToken
@@ -1121,6 +1181,7 @@ export const updateBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
+          ticketCustomerId
           __typename
         }
         nextToken
@@ -1212,6 +1273,7 @@ export const deleteBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
+          ticketCustomerId
           __typename
         }
         nextToken
@@ -1283,6 +1345,7 @@ export const createStopBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
+          ticketCustomerId
           __typename
         }
         nextToken
@@ -1327,6 +1390,7 @@ export const updateStopBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
+          ticketCustomerId
           __typename
         }
         nextToken
@@ -1371,6 +1435,7 @@ export const deleteStopBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
+          ticketCustomerId
           __typename
         }
         nextToken
@@ -1411,6 +1476,19 @@ export const createCustomer = /* GraphQL */ `
         bookingID
         stop
         customerID
+        customer {
+          id
+          name
+          lastName
+          ci
+          email
+          bookingID
+          ticketID
+          owner
+          createdAt
+          updatedAt
+          __typename
+        }
         seating
         status
         description
@@ -1419,6 +1497,7 @@ export const createCustomer = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
+        ticketCustomerId
         __typename
       }
       owner
@@ -1447,6 +1526,19 @@ export const updateCustomer = /* GraphQL */ `
         bookingID
         stop
         customerID
+        customer {
+          id
+          name
+          lastName
+          ci
+          email
+          bookingID
+          ticketID
+          owner
+          createdAt
+          updatedAt
+          __typename
+        }
         seating
         status
         description
@@ -1455,6 +1547,7 @@ export const updateCustomer = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
+        ticketCustomerId
         __typename
       }
       owner
@@ -1475,6 +1568,36 @@ export const createTicket = /* GraphQL */ `
       bookingID
       stop
       customerID
+      customer {
+        id
+        name
+        lastName
+        ci
+        email
+        bookingID
+        ticketID
+        ticket {
+          id
+          code
+          bookingID
+          stop
+          customerID
+          seating
+          status
+          description
+          url
+          owner
+          createdAt
+          updatedAt
+          stopBookingTicketsId
+          ticketCustomerId
+          __typename
+        }
+        owner
+        createdAt
+        updatedAt
+        __typename
+      }
       seating
       status
       description
@@ -1483,6 +1606,7 @@ export const createTicket = /* GraphQL */ `
       createdAt
       updatedAt
       stopBookingTicketsId
+      ticketCustomerId
       __typename
     }
   }
@@ -1498,6 +1622,36 @@ export const updateTicket = /* GraphQL */ `
       bookingID
       stop
       customerID
+      customer {
+        id
+        name
+        lastName
+        ci
+        email
+        bookingID
+        ticketID
+        ticket {
+          id
+          code
+          bookingID
+          stop
+          customerID
+          seating
+          status
+          description
+          url
+          owner
+          createdAt
+          updatedAt
+          stopBookingTicketsId
+          ticketCustomerId
+          __typename
+        }
+        owner
+        createdAt
+        updatedAt
+        __typename
+      }
       seating
       status
       description
@@ -1506,6 +1660,7 @@ export const updateTicket = /* GraphQL */ `
       createdAt
       updatedAt
       stopBookingTicketsId
+      ticketCustomerId
       __typename
     }
   }
@@ -1525,6 +1680,19 @@ export const createOrderTicket = /* GraphQL */ `
         bookingID
         stop
         customerID
+        customer {
+          id
+          name
+          lastName
+          ci
+          email
+          bookingID
+          ticketID
+          owner
+          createdAt
+          updatedAt
+          __typename
+        }
         seating
         status
         description
@@ -1533,6 +1701,7 @@ export const createOrderTicket = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
+        ticketCustomerId
         __typename
       }
       owner
@@ -1558,6 +1727,19 @@ export const updateOrderTicket = /* GraphQL */ `
         bookingID
         stop
         customerID
+        customer {
+          id
+          name
+          lastName
+          ci
+          email
+          bookingID
+          ticketID
+          owner
+          createdAt
+          updatedAt
+          __typename
+        }
         seating
         status
         description
@@ -1566,6 +1748,7 @@ export const updateOrderTicket = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
+        ticketCustomerId
         __typename
       }
       owner

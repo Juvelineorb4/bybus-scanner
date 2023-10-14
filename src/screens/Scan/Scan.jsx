@@ -5,37 +5,21 @@ import styles from "@/utils/styles/Scan.module.css";
 import CustomButton from "@/components/CustomButton";
 import ScanTicketList from "@/components/ScanTicketList";
 import CustomTravels from "@/components/CustomTravels";
-
+import UnSelectedView from "@/components/UnSelectedBooking";
+import { AntDesign } from "@expo/vector-icons";
 // amplify
 import { API } from "aws-amplify";
 import * as queries from "@/graphql/customQueries";
 // recoil
-import { useRecoilValue } from "recoil";
-import { tokenProfileGlobal } from "@/atoms/Modals";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { tokenProfileGlobal, travelSelect } from "@/atoms/Modals";
 const Scan = ({ navigation }) => {
   const global = require("@/utils/styles/global.js");
   const tokenProfile = useRecoilValue(tokenProfileGlobal);
   const [travels, setTravels] = useState([]);
-  const data = [
-    {
-      id: 1,
-      name: "Caracas - Barquisimeto",
-      date: "01/09/2023",
-      time: "12:00PM",
-    },
-    {
-      id: 2,
-      name: "Caracas - Valencia",
-      date: "01/09/2023",
-      time: "12:00PM",
-    },
-    {
-      id: 3,
-      name: "Caracas - Maracaibo",
-      date: "01/09/2023",
-      time: "12:00PM",
-    },
-  ];
+  const [travel, setTravel] = useState(null);
+  const [selectTravel, setSelectTravel] = useRecoilState(travelSelect);
+  const [error, setError] = useState("");
 
   const fetchBookingsAvailable = async () => {
     try {
@@ -71,10 +55,66 @@ const Scan = ({ navigation }) => {
     }
   };
 
+  const fetchBooking = async () => {
+    try {
+      const result = await API.graphql({
+        query: queries.getBooking,
+        authMode: "AMAZON_COGNITO_USER_POOLS",
+        variables: {
+          id: selectTravel?.id,
+        },
+      });
+
+      setTravel(result.data.getBooking);
+      console.log(result.data.getBooking.tickets.items[0]);
+    } catch (error) {
+      console.log("Error buscando viaje: ", error.message);
+    }
+  };
+
   useEffect(() => {
     if (tokenProfile) fetchBookingsAvailable();
   }, []);
 
+  useEffect(() => {
+    if (selectTravel?.id) fetchBooking();
+  }, [selectTravel]);
+
+  const horaFormatoNormal = (date, time) => {
+    // console.log(date, time);
+    const horaMilitar = new Date(`${date}T${time}`);
+    let minutosNew = "";
+    // // Obtener las horas y minutos
+    const horas = horaMilitar.getHours();
+    const minutos = horaMilitar.getMinutes();
+
+    // // Determinar si es AM o PM
+    const periodo = horas >= 12 ? "PM" : "AM";
+
+    // // Convertir a formato de hora normal (12 horas)
+    let horaNormal = horas % 12;
+    if (horaNormal === 0) {
+      horaNormal = 12; // Si es 0, cambiar a 12 para las 12:xx PM.
+    }
+
+    const horaFormateada = horaNormal.toString().padStart(2, "0");
+    const minutosFormateados = minutos.toString().padStart(2, "0");
+
+    // // Crear una cadena en formato de hora normal
+    const horaEnFormatoNormal = `${horaFormateada}:${minutosFormateados} ${periodo}`;
+    return horaEnFormatoNormal;
+  };
+
+  const onHandlerScanner = () => {
+    setError("");
+    if (travel) return navigation.navigate("Scanner");
+    setError("*Seleciona un Viaje*");
+  };
+
+  const clean = () => {
+    setSelectTravel({});
+    setTravel(null);
+  };
   return (
     <View
       style={[
@@ -88,80 +128,100 @@ const Scan = ({ navigation }) => {
       <View>
         <CustomButton
           text={`Escanea un ticket`}
-          handlePress={() => navigation.navigate("Scanner")}
+          handlePress={onHandlerScanner}
           textStyles={[styles.textScan, global.white]}
           buttonStyles={[styles.scan, global.bgBlack]}
         />
+        {error && (
+          <Text style={{ color: "red", textAlign: "center" }}>{error}</Text>
+        )}
       </View>
       <BottomSheetModal bottomSheetStyle={{ flex: 1 }}>
-        <View style={{ marginHorizontal: 10, alignItems: "center" }}>
-          <Text
-            style={{
-              fontFamily: "regular",
-              fontSize: 16,
-              marginBottom: 5,
-            }}
-          >
-            Destino: Barquisimeto
-          </Text>
-          <Text
-            style={{
-              fontFamily: "regular",
-              fontSize: 16,
-            }}
-          >
-            Hora de salida: 12:00PM
-          </Text>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            marginTop: 20,
-            flexDirection: "row",
-            borderColor: "#1f1f1f",
-            borderWidth: 0.4,
-            marginHorizontal: 10,
-            borderRadius: 2,
-            justifyContent: "space-between",
-            padding: 10,
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: "light",
-              textAlign: "center",
-              width: 50,
-            }}
-          >
-            Cedula
-          </Text>
-          <Text
-            style={{
-              fontFamily: "light",
-              textAlign: "center",
-              width: 150,
-            }}
-          >
-            N de ticket
-          </Text>
-          <Text
-            style={{
-              fontFamily: "light",
-              textAlign: "center",
-              width: 80,
-            }}
-          >
-            Estado
-          </Text>
-        </View>
-        <ScanTicketList status={true} />
-        <ScanTicketList status={false} />
-        <ScanTicketList status={false} />
-        <ScanTicketList cancel={true} />
-        <ScanTicketList status={true} />
-        <ScanTicketList status={true} />
-        <ScanTicketList status={true} />
+        {travel ? (
+          <>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-around" }}
+            >
+              <View style={{ marginHorizontal: 10, alignItems: "center" }}>
+                <Text
+                  style={{
+                    fontFamily: "regular",
+                    fontSize: 16,
+                    marginBottom: 5,
+                  }}
+                >
+                  Destino: {travel?.departureCity?.toUpperCase()}
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "regular",
+                    fontSize: 16,
+                  }}
+                >
+                  Hora de salida:{" "}
+                  {horaFormatoNormal(
+                    travel?.departure.date,
+                    travel?.departure.time
+                  )}
+                </Text>
+              </View>
+              <TouchableOpacity
+                onPress={clean}
+                style={{ justifyContent: "center", alignItems: "center" }}
+              >
+                <AntDesign name="delete" size={24} color="red" />
+              </TouchableOpacity>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                marginTop: 20,
+                flexDirection: "row",
+                borderColor: "#1f1f1f",
+                borderWidth: 0.4,
+                marginHorizontal: 10,
+                borderRadius: 2,
+                justifyContent: "space-between",
+                padding: 10,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "light",
+                  textAlign: "center",
+                  width: 50,
+                }}
+              >
+                Nombre
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "light",
+                  textAlign: "center",
+                  width: 150,
+                }}
+              >
+                N de ticket
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "light",
+                  textAlign: "center",
+                  width: 80,
+                }}
+              >
+                Estado
+              </Text>
+            </View>
+            {travel?.tickets?.items.map((item, index) => (
+              <ScanTicketList key={index} status={true} ticket={item} />
+            ))}
+          </>
+        ) : (
+          <UnSelectedView />
+        )}
       </BottomSheetModal>
     </View>
   );
