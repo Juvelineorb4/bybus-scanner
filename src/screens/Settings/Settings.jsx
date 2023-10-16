@@ -4,16 +4,18 @@ import styles from "@/utils/styles/Unprofile.module.css";
 import CustomSelect from "@/components/CustomSelect";
 import { Auth } from "aws-amplify";
 import { useRecoilState } from "recoil";
-import { tokenProfileGlobal } from "@/atoms/Modals";
+import { tokenProfileGlobal, travelSelect } from "@/atoms/Modals";
 const Settings = () => {
   const global = require("@/utils/styles/global.js");
   const [tokenProfile, setTokenProfile] = useRecoilState(tokenProfileGlobal);
+  const [selectTravel, setSelectTravel] = useRecoilState(travelSelect);
   const onHandlerLogout = async () => {
     await Auth.signOut();
   };
 
   const onHandlerChangeProfile = () => {
     setTokenProfile(null);
+    setSelectTravel({});
   };
 
   return (

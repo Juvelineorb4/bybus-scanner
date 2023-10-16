@@ -120,7 +120,6 @@ export const deleteCustomer = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -163,7 +162,6 @@ export const deleteTicket = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         owner
@@ -179,7 +177,6 @@ export const deleteTicket = /* GraphQL */ `
       createdAt
       updatedAt
       stopBookingTicketsId
-      ticketCustomerId
       __typename
     }
   }
@@ -220,7 +217,6 @@ export const deleteOrderTicket = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -1089,7 +1085,6 @@ export const createBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1181,7 +1176,6 @@ export const updateBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1273,7 +1267,6 @@ export const deleteBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1345,7 +1338,6 @@ export const createStopBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1390,7 +1382,6 @@ export const updateStopBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1435,7 +1426,6 @@ export const deleteStopBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1497,7 +1487,6 @@ export const createCustomer = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -1547,7 +1536,6 @@ export const updateCustomer = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -1590,7 +1578,6 @@ export const createTicket = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         owner
@@ -1606,7 +1593,6 @@ export const createTicket = /* GraphQL */ `
       createdAt
       updatedAt
       stopBookingTicketsId
-      ticketCustomerId
       __typename
     }
   }
@@ -1644,7 +1630,6 @@ export const updateTicket = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         owner
@@ -1660,7 +1645,6 @@ export const updateTicket = /* GraphQL */ `
       createdAt
       updatedAt
       stopBookingTicketsId
-      ticketCustomerId
       __typename
     }
   }
@@ -1701,7 +1685,6 @@ export const createOrderTicket = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -1748,7 +1731,6 @@ export const updateOrderTicket = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -2251,5 +2233,10 @@ export const deleteUser = /* GraphQL */ `
 export const registerAgencyAdmin = /* GraphQL */ `
   mutation RegisterAgencyAdmin($input: RegisterUserInput!) {
     registerAgencyAdmin(input: $input)
+  }
+`;
+export const checkScan = /* GraphQL */ `
+  mutation CheckScan($input: CheckScanInput) {
+    checkScan(input: $input)
   }
 `;

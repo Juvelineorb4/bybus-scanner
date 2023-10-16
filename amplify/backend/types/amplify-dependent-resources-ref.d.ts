@@ -41,6 +41,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
+    "checkTicketScan": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "createAdminAgency": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

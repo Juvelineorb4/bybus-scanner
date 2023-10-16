@@ -1,4 +1,10 @@
-import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import BottomSheetModal from "@/components/BottomSheetModal";
 import styles from "@/utils/styles/Scan.module.css";
@@ -20,6 +26,7 @@ const Scan = ({ navigation }) => {
   const [travel, setTravel] = useState(null);
   const [selectTravel, setSelectTravel] = useRecoilState(travelSelect);
   const [error, setError] = useState("");
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const fetchBookingsAvailable = async () => {
     try {
@@ -35,10 +42,9 @@ const Scan = ({ navigation }) => {
           },
         },
       });
-
       const newTraverls = result.data.listBookings.items
         .filter((item, index) => {
-          const today = new Date().toISOString().slice(0, 10);
+          let today = new Date().toISOString().slice(0, 10);
           return today === item?.departure?.date;
         })
         .map((item, index) => {
@@ -51,12 +57,14 @@ const Scan = ({ navigation }) => {
         });
       setTravels(newTraverls);
     } catch (error) {
+      console.log(error);
       console.log("error buscando viajes ", error.message);
     }
   };
 
   const fetchBooking = async () => {
     try {
+      console.log(selectTravel?.id);
       const result = await API.graphql({
         query: queries.getBooking,
         authMode: "AMAZON_COGNITO_USER_POOLS",
@@ -66,8 +74,9 @@ const Scan = ({ navigation }) => {
       });
 
       setTravel(result.data.getBooking);
-      console.log(result.data.getBooking.tickets.items[0]);
+      // console.log(result.data.getBooking.tickets.items[0]);
     } catch (error) {
+      console.log(error);
       console.log("Error buscando viaje: ", error.message);
     }
   };
@@ -115,115 +124,132 @@ const Scan = ({ navigation }) => {
     setSelectTravel({});
     setTravel(null);
   };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    if (tokenProfile) fetchBookingsAvailable();
+    if (selectTravel?.id) fetchBooking();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   return (
-    <View
-      style={[
-        global.mainBgColorSecond,
-        { flex: 1, padding: 20, flexDirection: "column" },
-      ]}
+    <ScrollView
+      contentContainerStyle={{ flex: 1 }}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
     >
-      <View style={{ paddingTop: 80, paddingBottom: 10 }}>
-        <CustomTravels data={travels} />
-      </View>
-      <View>
-        <CustomButton
-          text={`Escanea un ticket`}
-          handlePress={onHandlerScanner}
-          textStyles={[styles.textScan, global.white]}
-          buttonStyles={[styles.scan, global.bgBlack]}
-        />
-        {error && (
-          <Text style={{ color: "red", textAlign: "center" }}>{error}</Text>
-        )}
-      </View>
-      <BottomSheetModal bottomSheetStyle={{ flex: 1 }}>
-        {travel ? (
-          <>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-around" }}
-            >
-              <View style={{ marginHorizontal: 10, alignItems: "center" }}>
+      <View
+        style={[
+          global.mainBgColorSecond,
+          { flex: 1, padding: 20, flexDirection: "column" },
+        ]}
+      >
+        <View style={{ paddingTop: 80, paddingBottom: 10 }}>
+          <CustomTravels data={travels} />
+        </View>
+        <View>
+          <CustomButton
+            text={`Escanea un ticket`}
+            handlePress={onHandlerScanner}
+            textStyles={[styles.textScan, global.white]}
+            buttonStyles={[styles.scan, global.bgBlack]}
+          />
+          {error && (
+            <Text style={{ color: "red", textAlign: "center" }}>{error}</Text>
+          )}
+        </View>
+        <BottomSheetModal bottomSheetStyle={{ flex: 1 }}>
+          {travel ? (
+            <>
+              <View
+                style={{ flexDirection: "row", justifyContent: "space-around" }}
+              >
+                <View style={{ marginHorizontal: 10, alignItems: "center" }}>
+                  <Text
+                    style={{
+                      fontFamily: "regular",
+                      fontSize: 16,
+                      marginBottom: 5,
+                    }}
+                  >
+                    Destino: {travel?.arrivalCity?.toUpperCase()}
+                  </Text>
+                  <Text
+                    style={{
+                      fontFamily: "regular",
+                      fontSize: 16,
+                    }}
+                  >
+                    Hora de salida:{" "}
+                    {horaFormatoNormal(
+                      travel?.departure.date,
+                      travel?.departure.time
+                    )}
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  onPress={clean}
+                  style={{ justifyContent: "center", alignItems: "center" }}
+                >
+                  <AntDesign name="delete" size={24} color="red" />
+                </TouchableOpacity>
+              </View>
+
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                  marginTop: 20,
+                  flexDirection: "row",
+                  borderColor: "#1f1f1f",
+                  borderWidth: 0.4,
+                  marginHorizontal: 10,
+                  borderRadius: 2,
+                  justifyContent: "space-between",
+                  padding: 10,
+                }}
+              >
                 <Text
                   style={{
-                    fontFamily: "regular",
-                    fontSize: 16,
-                    marginBottom: 5,
+                    fontFamily: "light",
+                    textAlign: "center",
+                    width: 50,
                   }}
                 >
-                  Destino: {travel?.departureCity?.toUpperCase()}
+                  Nombre
                 </Text>
                 <Text
                   style={{
-                    fontFamily: "regular",
-                    fontSize: 16,
+                    fontFamily: "light",
+                    textAlign: "center",
+                    width: 150,
                   }}
                 >
-                  Hora de salida:{" "}
-                  {horaFormatoNormal(
-                    travel?.departure.date,
-                    travel?.departure.time
-                  )}
+                  N de ticket
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "light",
+                    textAlign: "center",
+                    width: 80,
+                  }}
+                >
+                  Estado
                 </Text>
               </View>
-              <TouchableOpacity
-                onPress={clean}
-                style={{ justifyContent: "center", alignItems: "center" }}
-              >
-                <AntDesign name="delete" size={24} color="red" />
-              </TouchableOpacity>
-            </View>
-
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                marginTop: 20,
-                flexDirection: "row",
-                borderColor: "#1f1f1f",
-                borderWidth: 0.4,
-                marginHorizontal: 10,
-                borderRadius: 2,
-                justifyContent: "space-between",
-                padding: 10,
-              }}
-            >
-              <Text
-                style={{
-                  fontFamily: "light",
-                  textAlign: "center",
-                  width: 50,
-                }}
-              >
-                Nombre
-              </Text>
-              <Text
-                style={{
-                  fontFamily: "light",
-                  textAlign: "center",
-                  width: 150,
-                }}
-              >
-                N de ticket
-              </Text>
-              <Text
-                style={{
-                  fontFamily: "light",
-                  textAlign: "center",
-                  width: 80,
-                }}
-              >
-                Estado
-              </Text>
-            </View>
-            {travel?.tickets?.items.map((item, index) => (
-              <ScanTicketList key={index} status={true} ticket={item} />
-            ))}
-          </>
-        ) : (
-          <UnSelectedView />
-        )}
-      </BottomSheetModal>
-    </View>
+              {travel?.tickets?.items.map((item, index) => (
+                <ScanTicketList key={index} status={true} ticket={item} />
+              ))}
+            </>
+          ) : (
+            <UnSelectedView />
+          )}
+        </BottomSheetModal>
+      </View>
+    </ScrollView>
   );
 };
 

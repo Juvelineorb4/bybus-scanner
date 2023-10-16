@@ -923,7 +923,6 @@ export const onCreateBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1015,7 +1014,6 @@ export const onUpdateBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1107,7 +1105,6 @@ export const onDeleteBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1179,7 +1176,6 @@ export const onCreateStopBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1224,7 +1220,6 @@ export const onUpdateStopBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1269,7 +1264,6 @@ export const onDeleteStopBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1331,7 +1325,6 @@ export const onCreateCustomer = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -1381,7 +1374,6 @@ export const onUpdateCustomer = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -1431,7 +1423,6 @@ export const onDeleteCustomer = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -1474,7 +1465,6 @@ export const onCreateTicket = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         owner
@@ -1490,7 +1480,6 @@ export const onCreateTicket = /* GraphQL */ `
       createdAt
       updatedAt
       stopBookingTicketsId
-      ticketCustomerId
       __typename
     }
   }
@@ -1528,7 +1517,6 @@ export const onUpdateTicket = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         owner
@@ -1544,7 +1532,6 @@ export const onUpdateTicket = /* GraphQL */ `
       createdAt
       updatedAt
       stopBookingTicketsId
-      ticketCustomerId
       __typename
     }
   }
@@ -1582,7 +1569,6 @@ export const onDeleteTicket = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         owner
@@ -1598,7 +1584,6 @@ export const onDeleteTicket = /* GraphQL */ `
       createdAt
       updatedAt
       stopBookingTicketsId
-      ticketCustomerId
       __typename
     }
   }
@@ -1639,7 +1624,6 @@ export const onCreateOrderTicket = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -1686,7 +1670,6 @@ export const onUpdateOrderTicket = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -1733,7 +1716,6 @@ export const onDeleteOrderTicket = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner

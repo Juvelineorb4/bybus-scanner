@@ -9,10 +9,18 @@ import {
 } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Camera } from "expo-camera";
-
-const Scanner = () => {
+// amplify
+import { API } from "aws-amplify";
+import { checkScan } from "@/graphql/mutations";
+// recoil
+import { useRecoilValue } from "recoil";
+import { travelSelect } from "@/atoms/Modals";
+const Scanner = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const selectTravel = useRecoilValue(travelSelect);
+  const [error, setError] = useState("");
+  const [msgSuccess, setMsgSuccess] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -21,7 +29,40 @@ const Scanner = () => {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  useEffect(() => {
+    if (!selectTravel?.id) navigation.goBack();
+  }, [selectTravel]);
+
+  const onHandlerCheckTicket = async (data) => {
+    setError("");
+    setMsgSuccess("");
+    const params = {
+      input: {
+        ticketID: data,
+        bookingID: selectTravel?.id,
+      },
+    };
+    try {
+      const result = await API.graphql({
+        query: checkScan,
+        authMode: "AMAZON_COGNITO_USER_POOLS",
+        variables: params,
+      });
+      console.log(JSON.parse(result?.data?.checkScan));
+      switch (JSON.parse(result?.data?.checkScan)?.statusCode) {
+        case 200:
+          setMsgSuccess(JSON.parse(result?.data?.checkScan)?.body?.message);
+          break;
+        default:
+          setError(JSON.parse(result?.data?.checkScan)?.body?.message);
+          break;
+      }
+    } catch (error) {
+      console.log("Error al chequiar Ticket: ", error.message);
+    }
+  };
+
+  const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
     Alert.alert("Escaner", `Escaneaste el ticket ${data} ¿quieres aceptarlo?`, [
       {
@@ -29,8 +70,12 @@ const Scanner = () => {
         onPress: () => console.log("Cancelado"),
         style: "cancel",
       },
-      { text: "Aceptar", onPress: () => console.log("Aceptado") },
+      {
+        text: "Aceptar",
+        onPress: () => onHandlerCheckTicket(data),
+      },
     ]);
+
     // alert(`Escaneaste el ticket ${data} ¿quieres aceptarlo?`);
   };
 
@@ -60,6 +105,8 @@ const Scanner = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Empieza a escanear tus tickets</Text>
+      {msgSuccess && <Text style={{ color: "green" }}>{msgSuccess}</Text>}
+      {error && <Text style={{ color: "red" }}>{error}</Text>}
       {renderCamera()}
       <TouchableOpacity style={styles.button} onPress={() => setScanned(false)}>
         <Text style={styles.buttonText}>Escanea un ticket de nuevo</Text>

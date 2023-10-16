@@ -292,23 +292,15 @@ type Ticket
   ) {
   id: ID!
   code: String
-  # J000000000BARCAR0707202300-00
   bookingID: ID @index(name: "byBookingToTicket")
   stop: ID @index(name: "byStopBookingToTicket")
   customerID: ID
-  customer: Customer @belongsTo
+  customer: Customer @belongsTo(fields: ["customerID"])
   seating: String
   status: String
   description: String
   url: String
   owner: String @auth(rules: [{ allow: owner, operations: [read] }])
-}
-
-enum ticketStatus {
-  ACTIVATED
-  BOARDED
-  UNBOARDED
-  CANCELED
 }
 
 type OrderTicket
@@ -456,6 +448,15 @@ type Mutation {
   registerAgencyAdmin(input: RegisterUserInput!): String
     @function(name: "createAdminAgency-${env}")
     @auth(rules: [{ allow: groups, groups: ["admin", "sp"] }])
+
+  checkScan(input: CheckScanInput): String
+    @function(name: "checkTicketScan-${env}")
+    @auth(rules: [{ allow: groups, groups: ["agency"] }])
+}
+
+input CheckScanInput {
+  ticketID: ID
+  bookingID: ID
 }
 
 input RegisterUserInput {

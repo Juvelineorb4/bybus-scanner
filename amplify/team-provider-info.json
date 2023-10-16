@@ -36,6 +36,10 @@
         "sheduleBookingUpdate": {
           "deploymentBucketName": "amplify-bybus-stage-193751-deployment",
           "s3Key": "amplify-builds/sheduleBookingUpdate-68377a64614c6a777168-build.zip"
+        },
+        "checkTicketScan": {
+          "deploymentBucketName": "amplify-bybus-stage-193751-deployment",
+          "s3Key": "amplify-builds/checkTicketScan-4b7a54586c4b30443738-build.zip"
         }
       },
       "storage": {

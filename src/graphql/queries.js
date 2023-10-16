@@ -883,7 +883,6 @@ export const getBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1142,7 +1141,6 @@ export const getStopBooking = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         nextToken
@@ -1275,7 +1273,6 @@ export const getCustomer = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -1314,7 +1311,6 @@ export const listCustomers = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         owner
@@ -1364,7 +1360,6 @@ export const customersByBookingID = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         owner
@@ -1407,7 +1402,6 @@ export const getTicket = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         owner
@@ -1423,7 +1417,6 @@ export const getTicket = /* GraphQL */ `
       createdAt
       updatedAt
       stopBookingTicketsId
-      ticketCustomerId
       __typename
     }
   }
@@ -1462,7 +1455,6 @@ export const listTickets = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       nextToken
@@ -1512,7 +1504,6 @@ export const ticketsByBookingID = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       nextToken
@@ -1562,7 +1553,6 @@ export const ticketsByStop = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       nextToken
@@ -1603,7 +1593,6 @@ export const getOrderTicket = /* GraphQL */ `
         createdAt
         updatedAt
         stopBookingTicketsId
-        ticketCustomerId
         __typename
       }
       owner
@@ -1639,7 +1628,6 @@ export const listOrderTickets = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         owner
@@ -1686,7 +1674,6 @@ export const orderTicketsByOrderID = /* GraphQL */ `
           createdAt
           updatedAt
           stopBookingTicketsId
-          ticketCustomerId
           __typename
         }
         owner
