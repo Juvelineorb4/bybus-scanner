@@ -1,6 +1,6 @@
 .inputs {
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-top: 20%;
 }
 .input {
@@ -12,21 +12,20 @@
   border-radius: 10px;
   font-weight: 100;
   margin-bottom: 25px;
-  border: 1px solid #00B4D8;
-  font-family: 'light';
+  border: 1px solid #00b4d8;
+  font-family: "light";
   font-size: 14px;
 }
 .title {
   text-align: center;
-  font-family: 'thin';
+  font-family: "thin";
   font-size: 20px;
   margin-bottom: 3px;
 }
 .subtitle {
-  font-family: 'medium';
+  font-family: "medium";
   text-align: center;
   font-size: 15px;
   margin-left: 5px;
   color: #1f1f1f;
-
 }
