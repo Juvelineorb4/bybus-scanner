@@ -60,11 +60,10 @@ const Login = ({ navigation, route }) => {
             <View styles={styles.textContent}>
               <Image
                 style={{
-                  width: 200,
-                  height: 40,
-                  resizeMode: "cover",
+                  width: 60,
+                  height: 60,
+                  resizeMode: "contain",
                   alignSelf: "center",
-                  marginVertical: 15,
                 }}
                 source={require("@/utils/images/icon.png")}
               />
@@ -91,8 +90,8 @@ const Login = ({ navigation, route }) => {
                   error: styles.errorInput,
                   input: [styles.inputContainer, global.bgWhiteSoft],
                 }}
-                text={`Correo`}
-                icon={require("@/utils/images/email.png")}
+                text={`Email`}
+                icon={require('@/utils/images/email.png')}
                 rules={{
                   required: "Requerido",
                   pattern: { value: EMAIL_REGEX, message: "Invalido" },

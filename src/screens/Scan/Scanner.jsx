@@ -122,15 +122,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
-    backgroundColor: "#00B4D8",
+    backgroundColor: '#ffce48',
     paddingBottom: 60,
   },
   title: {
     fontSize: 24,
-    fontFamily: "light",
+    fontFamily: 'thin',
     marginBottom: 30,
-    textAlign: "center",
-    color: "#ffffff",
+    textAlign: 'center'
   },
   paragraph: {
     fontSize: 16,

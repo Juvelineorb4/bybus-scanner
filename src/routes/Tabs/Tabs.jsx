@@ -128,7 +128,7 @@ const TabIcon = ({ isFocused, tabIcon, label, index }) => {
             height: 33,
             resizeMode: "contain",
           }}
-          source={isFocused ? tabIcon.activeIcon : tabIcon.inActiveIcon}
+          source={isFocused ? tabIcon.activeIcon : tabIcon.activeIcon}
         />
       </Animated.View>
       <Text
@@ -160,8 +160,8 @@ const Tabs = () => {
         key={`Scan_Tab`}
         options={{
           tabBarIcon: {
-            activeIcon: require("@/utils/images/scan_white.png"),
-            inActiveIcon: require("@/utils/images/scan.png"),
+            activeIcon: require("@/utils/images/password.png"),
+            inActiveIcon: require("@/utils/images/password.png"),
           },
           headerShown: false,
           tabBarLabel: "Escanea",
@@ -173,8 +173,8 @@ const Tabs = () => {
         component={SettingsNavigation}
         options={{
           tabBarIcon: {
-            activeIcon: require("@/utils/images/edit_white.png"),
-            inActiveIcon: require("@/utils/images/edit.png"),
+            activeIcon: require("@/utils/images/email.png"),
+            inActiveIcon: require("@/utils/images/email.png"),
           },
           headerShown: false,
           tabBarLabel: "Opciones",
