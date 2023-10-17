@@ -8,7 +8,7 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "bybusAuth"
+          "resourceName": "bybus"
         },
         {
           "attributes": [
@@ -16,7 +16,7 @@
             "Name"
           ],
           "category": "function",
-          "resourceName": "AdminQueriesb7cd86a4"
+          "resourceName": "AdminQueries43e2835c"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -29,21 +29,21 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "bybusAuth"
+          "resourceName": "bybus"
         }
       ],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [
             {
-              "authenticationType": "AWS_IAM"
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authbybus"
+              }
             }
           ],
           "defaultAuthentication": {
-            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "userPoolConfig": {
-              "userPoolId": "authbybusAuth"
-            }
+            "authenticationType": "AWS_IAM"
           }
         }
       },
@@ -52,7 +52,7 @@
     }
   },
   "auth": {
-    "bybusAuth": {
+    "bybus": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -89,7 +89,7 @@
             "IdentityPoolId"
           ],
           "category": "auth",
-          "resourceName": "bybusAuth"
+          "resourceName": "bybus"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -97,7 +97,7 @@
     }
   },
   "function": {
-    "AdminQueriesb7cd86a4": {
+    "AdminQueries43e2835c": {
       "build": true,
       "dependsOn": [
         {
@@ -105,13 +105,43 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "bybusAuth"
+          "resourceName": "bybus"
         }
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "adminCreateUserCognito": {
+    "calculeBookingStock": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "bybusgraphql"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "checkTicketScan": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "bybusgraphql"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "createAdminAgency": {
       "build": true,
       "dependsOn": [
         {
@@ -119,7 +149,44 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "bybusAuth"
+          "resourceName": "bybus"
+        },
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "bybusgraphql"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "createUserCognito": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "bybusgraphql"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "sheduleBookingUpdate": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "bybusgraphql"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -127,57 +194,105 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_AdminQueriesb7cd86a4_deploymentBucketName": {
+    "AMPLIFY_function_AdminQueries43e2835c_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "AdminQueriesb7cd86a4"
+          "resourceName": "AdminQueries43e2835c"
         }
       ]
     },
-    "AMPLIFY_function_AdminQueriesb7cd86a4_s3Key": {
+    "AMPLIFY_function_AdminQueries43e2835c_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "AdminQueriesb7cd86a4"
+          "resourceName": "AdminQueries43e2835c"
         }
       ]
     },
-    "AMPLIFY_function_AdminQueriese70dfc87_deploymentBucketName": {
+    "AMPLIFY_function_calculeBookingStock_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "AdminQueriese70dfc87"
+          "resourceName": "calculeBookingStock"
         }
       ]
     },
-    "AMPLIFY_function_AdminQueriese70dfc87_s3Key": {
+    "AMPLIFY_function_calculeBookingStock_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "AdminQueriese70dfc87"
+          "resourceName": "calculeBookingStock"
         }
       ]
     },
-    "AMPLIFY_function_adminCreateUserCognito_deploymentBucketName": {
+    "AMPLIFY_function_checkTicketScan_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "adminCreateUserCognito"
+          "resourceName": "checkTicketScan"
         }
       ]
     },
-    "AMPLIFY_function_adminCreateUserCognito_s3Key": {
+    "AMPLIFY_function_checkTicketScan_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "adminCreateUserCognito"
+          "resourceName": "checkTicketScan"
+        }
+      ]
+    },
+    "AMPLIFY_function_createAdminAgency_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createAdminAgency"
+        }
+      ]
+    },
+    "AMPLIFY_function_createAdminAgency_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createAdminAgency"
+        }
+      ]
+    },
+    "AMPLIFY_function_createUserCognito_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createUserCognito"
+        }
+      ]
+    },
+    "AMPLIFY_function_createUserCognito_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createUserCognito"
+        }
+      ]
+    },
+    "AMPLIFY_function_sheduleBookingUpdate_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sheduleBookingUpdate"
+        }
+      ]
+    },
+    "AMPLIFY_function_sheduleBookingUpdate_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sheduleBookingUpdate"
         }
       ]
     }
   },
   "storage": {
-    "bybusS3": {
+    "s3storagebybus": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3"

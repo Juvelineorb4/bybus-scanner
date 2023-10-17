@@ -3,20 +3,19 @@ import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { useState } from "react";
 import { travelSelect } from "@/atoms/Modals";
-
 const Travel = ({ item }) => {
   const global = require("@/utils/styles/global.js");
   const [active, setActive] = useState(false);
   const [selectTravel, setSelectTravel] = useRecoilState(travelSelect);
   const onHandleCheckActive = () => {
-      if (selectTravel.id === item.id) {
-        setActive(true)
+    if (selectTravel.id === item.id) {
+      setActive(true);
     } else {
-        setActive(false)
+      setActive(false);
     }
   };
   useEffect(() => {
-    onHandleCheckActive()
+    onHandleCheckActive();
   }, [selectTravel]);
 
   return (
@@ -37,7 +36,7 @@ const Travel = ({ item }) => {
       ]}
       onPress={() => {
         if (active === false) {
-            setSelectTravel(item);
+          setSelectTravel(item);
           setActive(true);
         }
       }}
