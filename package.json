@@ -51,11 +51,13 @@
     "react-native-svg": "13.9.0",
     "react-native-web": "~0.19.6",
     "react-navigation": "^4.4.4",
-    "recoil": "^0.7.6"
+    "recoil": "^0.7.6",
+    "expo-system-ui": "~2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "babel-plugin-module-resolver": "^5.0.0"
+    "babel-plugin-module-resolver": "^5.0.0",
+    "sharp-cli": "^4.1.1"
   },
   "private": true
 }
