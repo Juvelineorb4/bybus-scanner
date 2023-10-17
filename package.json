@@ -52,7 +52,8 @@
     "recoil": "^0.7.6",
     "expo-barcode-scanner": "~12.3.2",
     "expo-camera": "~13.2.1",
-    "expo-updates": "~0.16.4"
+    "expo-updates": "~0.16.4",
+    "expo-system-ui": "~2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
